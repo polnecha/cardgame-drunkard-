@@ -14,3 +14,24 @@ class CardGame:
             return 1
         else:
             return 2
+
+    def play(self):
+        rounds = 0
+        while self.player1 and self.player2 and rounds < self.max_rounds:
+            c1 = self.player1.pop(0)
+            c2 = self.player2.pop(0)
+
+            winner = self.compare_cards(c1, c2)
+            if winner == 1:
+                self.player1.extend([c1, c2])
+            else:
+                self.player2.extend([c1, c2])
+            rounds += 1
+
+        if rounds >= self.max_rounds:
+            return "botva"
+        elif not self.player2:
+            return f"first {rounds}"
+        else:
+            return f"second {rounds}"
+
