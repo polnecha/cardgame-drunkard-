@@ -35,15 +35,33 @@ class CardGame:
         else:
             return f"second {rounds}"
 
-    def read_cards(prompt):
-        while True:
-            try:
-                input_str = input(prompt)
-                cards = list(map(int, input_str.strip().split()))
-                if len(cards) != 5 or any(c < 0 or c > 9 for c in cards):
-                    raise ValueError
-                if len(set(cards)) != len(cards):
-                    raise ValueError("Карты не должны повторяться.")
-                return cards
-            except ValueError:
-                print("Ошибка ввода! Введите 5 различных чисел от 0 до 9 через пробел.")
+def read_cards(prompt):
+    while True:
+        try:
+            input_str = input(prompt)
+            cards = list(map(int, input_str.strip().split()))
+            if len(cards) != 5 or any(c < 0 or c > 9 for c in cards):
+                raise ValueError
+            if len(set(cards)) != len(cards):
+                raise ValueError("Карты не должны повторяться.")
+            return cards
+        except ValueError:
+            print("Ошибка ввода! Введите 5 различных чисел от 0 до 9 через пробел.")
+
+def main():
+    print("Игра в пьяницу. Введите карты двух игроков.")
+    p1 = read_cards("Карты первого игрока: ")
+    p2 = read_cards("Карты второго игрока: ")
+
+    all_cards = set(p1 + p2)
+    if len(all_cards) != 10:
+        print("Ошибка: в игре должно быть 10 различных карт от 0 до 9.")
+        return
+
+    game = CardGame(p1, p2)
+    result = game.play()
+    print(result)
+
+
+if __name__ == "__main__":
+    main()
