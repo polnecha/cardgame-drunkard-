@@ -35,3 +35,15 @@ class CardGame:
         else:
             return f"second {rounds}"
 
+    def read_cards(prompt):
+        while True:
+            try:
+                input_str = input(prompt)
+                cards = list(map(int, input_str.strip().split()))
+                if len(cards) != 5 or any(c < 0 or c > 9 for c in cards):
+                    raise ValueError
+                if len(set(cards)) != len(cards):
+                    raise ValueError("Карты не должны повторяться.")
+                return cards
+            except ValueError:
+                print("Ошибка ввода! Введите 5 различных чисел от 0 до 9 через пробел.")
