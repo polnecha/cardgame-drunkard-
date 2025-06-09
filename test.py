@@ -1,11 +1,23 @@
 class CardGame:
+    """
+           Инициализация игры с колодами двух игроков.
+
+           :param player1_cards: Список из 5 карт первого игрока.
+           :param player2_cards: Список из 5 карт второго игрока.
+           """
     def __init__(self, player1_cards, player2_cards):
         self.player1 = list(player1_cards)
         self.player2 = list(player2_cards)
         self.max_rounds = 10 ** 6
 
     def compare_cards(self, c1, c2):
-        """Сравнивает две карты с учетом правила '0 бьет 9'."""
+        """
+        Сравнивает две карты с учётом правила '0 бьёт 9'.
+
+        :param c1: Карта первого игрока.
+        :param c2: Карта второго игрока.
+        :return: 1, если выигрывает первый игрок; 2 — если второй.
+        """
         if c1 == 0 and c2 == 9:
             return 1
         elif c1 == 9 and c2 == 0:
@@ -16,6 +28,14 @@ class CardGame:
             return 2
 
     def play(self):
+        """
+        Запускает игровой процесс и определяет победителя.
+
+        :return: Строка с результатом игры:
+                 "first N" — победа первого игрока за N раундов;
+                 "second N" — победа второго игрока за N раундов;
+                 "botva" — ничья (превышено число раундов).
+        """
         rounds = 0
         while self.player1 and self.player2 and rounds < self.max_rounds:
             c1 = self.player1.pop(0)
@@ -36,6 +56,12 @@ class CardGame:
             return f"second {rounds}"
 
 def read_cards(prompt):
+    """
+   Считывает и проверяет корректность ввода 5 уникальных карт от пользователя.
+
+   :param prompt: Сообщение для ввода.
+   :return: Список из 5 целых чисел (карт).
+   """
     while True:
         try:
             input_str = input(prompt)
@@ -49,6 +75,12 @@ def read_cards(prompt):
             print("Ошибка ввода! Введите 5 различных чисел от 0 до 9 через пробел.")
 
 def main():
+    """
+    Основная функция запуска программы:
+    - Запрашивает ввод карт у двух игроков.
+    - Проверяет корректность всех карт.
+    - Запускает игру и выводит результат.
+    """
     print("Игра в пьяницу.")
     print("Введите 5 уникальных карт (от 0 до 9) для каждого игрока через пробел (всего 10 карт без повторов).")
     p1 = read_cards("Карты первого игрока: ")
