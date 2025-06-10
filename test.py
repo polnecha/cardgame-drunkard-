@@ -38,6 +38,7 @@ class CardGame:
         """
         rounds = 0
         while self.player1 and self.player2 and rounds < self.max_rounds:
+            # Игрок вскрывает верхнюю карту
             c1 = self.player1.pop(0)
             c2 = self.player2.pop(0)
 
